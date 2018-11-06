@@ -1,0 +1,37 @@
+package com.horn.edu.sso.server.controller;
+
+import com.horn.edu.sso.mybatis.util.StringUtils;
+import com.horn.edu.sso.server.client.SessionUtils;
+import com.horn.edu.sso.server.common.TokenManager;
+import com.horn.edu.sso.server.util.CookieUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Created by misterxu on 2018/11/6.
+ */
+@Api(tags = "单点登出")
+@Controller
+@RequestMapping("/logout")
+public class LogoutController {
+    @Resource
+    private TokenManager tokenManager;
+
+    @ApiOperation("登出")
+    @RequestMapping(method = RequestMethod.GET)
+    public String logout(@ApiParam(value = "返回链接") String backUrl, HttpServletRequest request) {
+        String token = CookieUtils.getCookie(request, TokenManager.TOKEN);
+        if (StringUtils.isNotBlank(token)) {
+            tokenManager.remove(token);
+        }
+        SessionUtils.invalidate(request);
+        return "redirect:" + (StringUtils.isBlank(backUrl) ? "/admin/admin" : backUrl);
+    }
+}
