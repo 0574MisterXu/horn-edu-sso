@@ -2,6 +2,7 @@ package com.horn.edu.sso.server.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * Created by misterxu on 2018/11/6.
  */
-
+@Component
 public class LocalTokenManager extends TokenManager{
 
     private final Logger logger = LoggerFactory.getLogger(getClass());

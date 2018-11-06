@@ -88,7 +88,7 @@
 		</if>
 	</delete>
 	
-	<select id="findListById" parameterType="map" resultType="com.smart.sso.rpc.RpcPermission">   
+	<select id="findListById" parameterType="map" resultType="com.horn.edu.sso.server.rpc.RpcPermission">
      	SELECT DISTINCT
      		   p.id,
 		       p.parentId,
